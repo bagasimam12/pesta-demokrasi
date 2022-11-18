@@ -4,22 +4,27 @@
 @endsection
 
 @section('content')
-    <div class="profile-card d-flex justify-content-center">
-    <div class="card mb-3" style="max-width: 600px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="{{ asset('images/static/user-profile.png') }}" class="img-fluid rounded-start p-2" alt="user-profile">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-                <div class="name mt-3">
-                <h3 class="name"><strong>{{ Auth::user()->name }}</strong></h3>
-                <h6 class="type text-uppercase"><strong>{{ Auth::user()->user_type }}</strong></h6>
+<div class="profile-card d-flex justify-content-center">
+    <div class="card" style="max-width: 7000px;min-width:700px;">
+        <div class="card-body">
+            <div class="row ps-1">
+                <div class="col-md-3 pt-3 ps-4">
+                    <img src="{{ asset('images/static/user-profile.png') }}" class="img-fluid rounded-circle"
+                        alt="user-profile" width="125">
                 </div>
-                <div class="data mt-3">
-              <p class="card-text m-0"><strong>NIS/NIP :</strong><span class="fst-italic"> {{ Auth::user()->uuid }}</span></p>
-              <p class="card-text"><strong>Kelas : </strong><span class="fst-italic"> 
-                <?php
+                <div class="col-md-9 data-diri pt-4">
+                    <h4 class="name"><strong>{{ Auth::user()->name }}</strong></h4>
+                    <h6 class="type text-uppercase">{{ Auth::user()->user_type }}</h6>
+                </div>
+            </div>
+            <div class="row ps-3 my-3">
+                <div class="col-3 nis-kls">
+                    <h5>NIS</h5>
+                    <h5>KELAS</h5>
+                </div>
+                <div class="col-9 ps-0 nama">
+                    <h5>: {{ Auth::user()->uuid }}</h5>
+                    <h5>: <?php
                     if (Auth::user()->kelas_id == 1) {
                         echo ' X AK 1';
                     } elseif (Auth::user()->kelas_id == 2) {
@@ -139,71 +144,90 @@
                     } elseif (Auth::user()->kelas_id == 59) {
                         echo ' XIII TMT 2';
                     }
-                    ?></span>
-              </p>
-            </div>
-            </div>
-          </div>
-        </div>
-        <div class="row p-3 pt-0">
-            <div class="col-md-6 pb-md-0 pb-2"><button data-bs-toggle="modal" data-bs-target="#modalLogout" type="button" class="btn btn-danger btn-sm w-100">Kembali</button></div>
-            <div class="col-md-6 text-md-end"><form action="{{ route('agreement') }}" method="post">
-                @csrf
-                <button type="submit" class="btn btn-primary btn-sm w-100">Lanjut</button>
-            </form></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modalLogout" data-backdrop="static" data-keyboard="false" tabindex="-1"
-        aria-labelledby="modalLogout" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLogout">Konfirmasi Ulang</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    ?></h5>
                 </div>
-                <div class="modal-body">
-                    <p class="lead">Apakah kamu yakin untuk keluar?</p>
-                </div>
-                <div class="modal-footer">
-                    <form action="{{ route('logout') }}" method="get">
+            </div>
+            <div class="row py-0 px-3">
+                <div class="col-md-6 pb-md-0 pb-2"><button data-bs-toggle="modal" data-bs-target="#modalLogout"
+                        type="button" class="btn btn-danger btn-sm w-100">Kembali</button></div>
+                <div class="col-md-6 text-md-end">
+                    <form action="{{ route('agreement') }}" method="post">
                         @csrf
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-danger">Yakin</button>
+                        <button type="submit" class="btn btn-primary btn-sm w-100">Lanjut</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <style>
-        .card {
-            background: rgba( 255, 255, 255, 0.3 );
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur( 2.5px );
--webkit-backdrop-filter: blur( 2.5px );
-border-radius: 10px;
-border: 1px solid rgba( 255, 255, 255, 0.18 );
-}
-.profile-card{
-    margin-top: 7rem !important;
-}
-        @media only screen and (max-width: 600px) {
-            .profile-card{
-                margin-top: 0 !important;
-            }
+<div class="modal fade" id="modalLogout" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="modalLogout" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLogout">Konfirmasi Ulang</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="lead text-dark">Apakah kamu yakin untuk keluar?</p>
+            </div>
+            <div class="modal-footer">
+                <form action="{{ route('logout') }}" method="get">
+                    @csrf
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger">Yakin</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(2.5px);
+        -webkit-backdrop-filter: blur(2.5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .nama h5{
+        font-family:'Poppins';
+        font-weight: 300 !important;
+    }
+
+    .profile-card {
+        margin-top: 5rem !important;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .profile-card {
+            margin-top: 4 !important;
         }
-    </style>
+
+        .data-diri {
+            padding-left: 25px;
+        }
+
+        .nis-kls h5 {
+            /* font-size: 17px; */
+        }
+        .card{
+            min-width:50px !important;
+        }
+    }
+</style>
 @endsection
 
 @push('footscript')
-    <script>
-        $(document).ready(function() {
-            $('#modalLogout').on('show.bs.modal', function(e) {
-                var modal = $(this);
-                var button = $(e.relatedTarget);
-            });
+<script>
+    $(document).ready(function () {
+        $('#modalLogout').on('show.bs.modal', function (e) {
+            var modal = $(this);
+            var button = $(e.relatedTarget);
         });
-    </script>
+    });
+</script>
 @endpush
